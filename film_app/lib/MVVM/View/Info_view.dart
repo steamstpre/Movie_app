@@ -1,27 +1,36 @@
-import 'package:film_app/BloC/BloC/Check_info.dart';
-import 'package:film_app/Model/Movie_model.dart';
+import 'package:film_app/BloC/Consts/paddingSizeModel.dart';
+import 'package:film_app/BloC/uiForBlock/Screens/landscapeModeBlock.dart';
+import 'package:film_app/Model/movieInfo.dart';
+import 'package:film_app/Model/movieModel.dart';
+import 'package:film_app/Widgets/infoView.dart';
+import 'package:film_app/chooseArchiScreen/Choose_arch_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:film_app/MVVM/ViewModel/ViewModelMovie.dart';
 
 class Info_view extends StatefulWidget {
+  final MovieInfo movieInfo;
+  late final String _name_of_movie;
+  List<String> _movies_list = [];
+  static const route = "infoView";
   Info_view({
     Key? key,
-    required this.name_of_movie,
-  }) : super(key: key) {}
-  late String name_of_movie;
+    required this.movieInfo,
+  }) : super(key: key) {
+    _name_of_movie = movieInfo.selected_movie;
+    _movies_list = movieInfo.moviesList;
+  }
 
   @override
-  _InfoState createState() => _InfoState(name_of_movie);
+  _InfoState createState() => _InfoState(_name_of_movie , _movies_list);
 }
 
 class _InfoState extends State<Info_view> {
   late final String name_of_movie;
   late ViewModelMovie _modelMovie = new ViewModelMovie();
-  late Movie _movie = new Movie(
-      name_of_movie: "none", description_of_movie: "none", img: "none");
+  Movie? _movie;
+  List<String> movies_list = [];
 
-  _InfoState(this.name_of_movie) {
+  _InfoState(this.name_of_movie , this.movies_list) {
     get_data();
   }
 
@@ -33,46 +42,54 @@ class _InfoState extends State<Info_view> {
     });
   }
 
+  void exitFromInfoPortraine() {
+    Navigator.of(context).pop();
+  }
+
+  void exitFromInfoLandScape() {
+    Navigator.of(context).pushNamed(HomeScreen.route);
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constrains) {
-      if (_movie.name_of_movie == "none") {
+      if (_movie == null) {
         return Scaffold(
             appBar: AppBar(title: Text("Info")),
             body: Center(
               child: CircularProgressIndicator(),
             ));
       } else {
-        return Scaffold(
-          appBar: AppBar(title: Text("Info")),
-          body: Stack(
-            children: [
-              Stack(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(bottom: 650),
-                      child: Center(
-                          child: Text(
-                        _movie.name_of_movie,
-                        style: TextStyle(fontSize: 42),
-                      ))),
-                  Padding(
-                    padding: EdgeInsets.only(top: 110, left: 13, right: 13),
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      imageUrl: _movie.img,
-                    ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(top: 390, left: 13, right: 13),
-                      child: Text(_movie.description_of_movie))
-                ],
-              ),
-            ],
-          ),
-        );
+        if (MediaQuery.of(context).orientation == Orientation.portrait) {
+          return Scaffold(
+              appBar: AppBar(
+                  title: Text("Info"),
+                  leading: new IconButton(
+                      onPressed: exitFromInfoPortraine,
+                      icon: Icon(Icons.arrow_back_ios))),
+              body: InfoView(
+                  movie: _movie as Movie,
+                  paddingSizeForNameOfMovie: PaddingSizeModel(bottom: 650),
+                  paddingSizeForImgOfMovie:
+                      PaddingSizeModel(top: 110, left: 13, right: 13),
+                  paddingSizeForDescriptionOfMovie:
+                      PaddingSizeModel(top: 390, left: 44),
+                  widthForImg: 400,
+                  fontSizeNameOfMovie: 42,
+                  fontSizeDiscriptionOfMovie: 20));
+        } else {
+          get_data();
+          return Scaffold(
+            appBar: AppBar(
+                title: Text("Info"),
+                leading: new IconButton(
+                    onPressed: exitFromInfoLandScape,
+                    icon: Icon(Icons.arrow_back_ios))),
+            body: LandScapeMode(
+                moviesList: this.movies_list, selected_movie: _movie),
+          );
+        }
       }
     });
   }

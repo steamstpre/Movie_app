@@ -1,6 +1,6 @@
-import 'package:film_app/Networking/Network.dart';
+import 'package:film_app/repositories//repository.dart';
 import 'package:flutter/material.dart';
-import 'package:film_app/Model/Movie_model.dart';
+import 'package:film_app/Model/movieModel.dart';
 import 'package:film_app/Storage//Data.dart';
 
 class ViewModelMovie {

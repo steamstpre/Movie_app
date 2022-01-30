@@ -1,19 +1,21 @@
-import 'package:film_app/BloC/Consts/Route_name_const.dart';
+import 'package:film_app/BloC/Consts/routeNameConst.dart';
+import 'package:film_app/BloC/uiForBlock/Screens/listMoviesViewBlock.dart';
+import 'package:film_app/MVVM/View/List_of_movies.dart';
 import 'package:film_app/Storage/Data.dart';
-import 'package:film_app/Networking/Network.dart';
+import 'package:film_app/repositories/repository.dart';
 import 'package:flutter/material.dart';
 
-
 class HomeScreen extends StatelessWidget {
-  Data_networking data = Data_networking();
-  HomeScreen({Key? key}) : super(key: key);
 
+  static const route = "HomeScreen";
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("choose arch"),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -24,8 +26,8 @@ class HomeScreen extends StatelessWidget {
                 width: 100,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(Route_name.movie_list_block),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(Movies_list.route),
                   child: Text("BloC"),
                 ),
               ),
@@ -39,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(Route_name.movie_list_mvvm);
+                    Navigator.of(context).pushNamed(Movies_list_MvvM.route);
                   },
                   child: Text("MVVM"),
                 ),

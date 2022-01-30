@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Global_navigator/Route_generator.dart';
+import 'navigator/routeGenerator.dart';
 
 
 void main() async{

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Refresh_widget extends StatefulWidget {
+class Refresh_widget extends StatelessWidget {
   final Widget child;
   final Future Function() onRefresh;
 
@@ -8,13 +8,7 @@ class Refresh_widget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _Refresh_widgetState createState() => _Refresh_widgetState();
-}
+  Widget build(BuildContext context) => buildList();
 
-class _Refresh_widgetState extends State<Refresh_widget> {
-  @override
-  Widget build(BuildContext context) => buildAndroidList();
-
-  Widget buildAndroidList() =>
-      RefreshIndicator(onRefresh: widget.onRefresh, child: widget.child);
+  Widget buildList() => RefreshIndicator(onRefresh: onRefresh, child: child);
 }

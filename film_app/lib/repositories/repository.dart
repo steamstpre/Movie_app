@@ -24,7 +24,7 @@ class Data_networking {
     await Firebase.initializeApp();
   }
 
-  Future getMovieList() async {
+  Future<List<String>?> getMovieList() async {
     try {
       var querySnapshot = await _MovieCollection.get();
       for (var queryDocumentSnapshot in querySnapshot.docs) {
@@ -32,7 +32,7 @@ class Data_networking {
         data.forEach((key, value) {
           this._name_of_movie.add(value);
         });
-          return this._name_of_movie;
+        return this._name_of_movie;
       }
     } catch (e) {
       print(e.toString());
