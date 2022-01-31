@@ -1,38 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
-import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 
-class Data_networking {
-  final CollectionReference _MovieCollection =
+//delete import
+class DataNetwork {
+  final CollectionReference _movieCollection =
       FirebaseFirestore.instance.collection('descript_list');
-  final CollectionReference _DescCollection =
+  final CollectionReference _descCollection =
       FirebaseFirestore.instance.collection('description_of_movie');
-  final CollectionReference _ImgCollection =
+  final CollectionReference _imgCollection =
       FirebaseFirestore.instance.collection('movie_img');
-  List<String> _name_of_movie = [];
-  Map<String, dynamic> _decs_of_movie = {};
-  Map<String, dynamic> _img_of_movie = {};
+  List<String> _nameOfMovie = [];
+  Map<String, dynamic> _decsOfMovie = {};
+  Map<String, dynamic> _imgOfMovie = {};
 
-  Data_networking() {
-    init_fire_base();
+  DataNetwork() {
+    initFireBase();
   }
 
-  Future init_fire_base() async {
+  Future initFireBase() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
   }
 
   Future<List<String>?> getMovieList() async {
     try {
-      var querySnapshot = await _MovieCollection.get();
+      var querySnapshot = await _movieCollection.get();
       for (var queryDocumentSnapshot in querySnapshot.docs) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
         data.forEach((key, value) {
-          this._name_of_movie.add(value);
+          this._nameOfMovie.add(value);
         });
-        return this._name_of_movie;
+        return this._nameOfMovie;
       }
     } catch (e) {
       print(e.toString());
@@ -42,12 +43,12 @@ class Data_networking {
 
   Future getDescMap() async {
     try {
-      var querySnapshot = await _DescCollection.get();
+      var querySnapshot = await _descCollection.get();
       for (var queryDocumentSnapshot in querySnapshot.docs) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
-        this._decs_of_movie = data;
+        this._decsOfMovie = data;
       }
-      return this._decs_of_movie;
+      return this._decsOfMovie;
     } catch (e) {
       print(e.toString());
       return null;
@@ -56,21 +57,21 @@ class Data_networking {
 
   Future getImgMap() async {
     try {
-      var querySnapshot = await _ImgCollection.get();
+      var querySnapshot = await _imgCollection.get();
       for (var queryDocumentSnapshot in querySnapshot.docs) {
         Map<String, dynamic> data = queryDocumentSnapshot.data();
-        _img_of_movie = data;
+        _imgOfMovie = data;
       }
-      return this._img_of_movie;
+      return this._imgOfMovie;
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
 
-  List<String> get name_of_movie => _name_of_movie;
+  List<String> get nameOfMovie => _nameOfMovie;
 
-  Map<String, dynamic> get decs_of_movie => _decs_of_movie;
+  Map<String, dynamic> get decsOfMovie => _decsOfMovie;
 
-  Map<String, dynamic> get img_of_movie => _img_of_movie;
+  Map<String, dynamic> get imgOfMovie => _imgOfMovie;
 }

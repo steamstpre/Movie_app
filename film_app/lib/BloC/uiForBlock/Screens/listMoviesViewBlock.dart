@@ -1,63 +1,62 @@
 import 'package:film_app/BloC/BloC/descriptionBlock.dart';
 import 'package:film_app/BloC/BloC/listMoviesBloc.dart';
-import 'package:film_app/BloC/Consts/routeNameConst.dart';
 import 'package:film_app/BloC/uiForBlock/Screens/infoVIewBlock.dart';
 import 'package:film_app/BloC/uiForBlock/Screens/landscapeModeBlock.dart';
 import 'package:film_app/Widgets/listView.dart';
 import 'package:film_app/Model/movieModel.dart';
 import 'package:film_app/Model/movieInfo.dart';
-import 'package:film_app/Widgets/Refresh_widget.dart';
+import 'package:film_app/Widgets/refreshWidget.dart';
 import 'package:flutter/material.dart';
 
-class Movies_list extends StatefulWidget {
+class MoviesList extends StatefulWidget {
   static const route = "MoviesList";
-  const Movies_list({Key? key, this.selected_movie}) : super(key: key);
-  final Movie? selected_movie;
+  const MoviesList({Key? key, this.selectedMovie}) : super(key: key);
+  final Movie? selectedMovie;
 
   @override
-  _Movies_listState createState() => _Movies_listState(movie: selected_movie);
+  _MoviesListState createState() => _MoviesListState(movie: selectedMovie);
 }
 
-class _Movies_listState extends State<Movies_list> {
-  late List_of_movies_bloc _list_of_movies_bloc = new List_of_movies_bloc();
-  List<String> _movies_list = [];
-  late final Description_block _check_info_bloc = new Description_block();
+// no use _
+class _MoviesListState extends State<MoviesList> {
+  late ListOfMoviesBloc _listOfMoviesBloc = new ListOfMoviesBloc();
+  List<String> _moviesList = [];
+  late final DescriptionBlock _checkInfoBloc = new DescriptionBlock();
   late Movie? movie;
   late MovieInfo _movieInfo;
 
-  _Movies_listState({this.movie});
+  _MoviesListState({this.movie});
 
   @override
   void dispose() {
-    this._list_of_movies_bloc.dispose();
-    this._check_info_bloc.dispose();
+    this._listOfMoviesBloc.dispose();
+    this._checkInfoBloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constrains) {
+    return OrientationBuilder(
+        builder: (context, orientation) {
       Widget buildList() {
-        return Refresh_widget(
-          onRefresh: _list_of_movies_bloc.refreshList,
+        return RefreshWidget(
+          onRefresh: _listOfMoviesBloc.refreshList,
           child: StreamBuilder(
-              stream: _list_of_movies_bloc.outputStateStream,
+              stream: _listOfMoviesBloc.outputStateStream,
               builder: (context, snapshot) {
                 if (snapshot.data == null) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  _movies_list = snapshot.data as List<String>;
-                  if (MediaQuery.of(context).orientation ==
-                      Orientation.portrait) {
-                    return movieListView(
-                      movies_list: _movies_list,
+                  _moviesList = snapshot.data as List<String>;
+                  if (orientation == Orientation.portrait) {
+                    return MovieListView(
+                      moviesList: _moviesList,
                       onSelect: (item) {
                         setState(() {
                           this._movieInfo =
-                              new MovieInfo(this._movies_list, item);
+                              new MovieInfo(this._moviesList, item);
                         });
                         Navigator.of(context).pushNamed(Info.route,
                             arguments: this._movieInfo);
@@ -65,11 +64,11 @@ class _Movies_listState extends State<Movies_list> {
                     );
                   } else {
                     if (this.movie == null) {
-                      return LandScapeMode(moviesList: _movies_list);
+                      return LandScapeMode(moviesList: _moviesList);
                     } else {
                       return LandScapeMode(
-                        moviesList: _movies_list,
-                        selected_movie: movie,
+                        moviesList: _moviesList,
+                        selectedMovie: movie,
                       );
                     }
                   }

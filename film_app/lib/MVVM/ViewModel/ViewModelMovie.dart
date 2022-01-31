@@ -1,30 +1,30 @@
 import 'package:film_app/repositories//repository.dart';
-import 'package:flutter/material.dart';
+
 import 'package:film_app/Model/movieModel.dart';
-import 'package:film_app/Storage//Data.dart';
 
 class ViewModelMovie {
   late final Movie movie;
-  final Data_networking data_networking = Data_networking();
+  final DataNetwork dataNetworking = DataNetwork();
   late Map<String, dynamic> description;
-  late Map<String, dynamic> img_src;
+  late Map<String, dynamic> imgSrc;
 
-  Future apply_movie(String name) async {
+  Future applyMovie(String name) async {
     this.description =
-    await this.data_networking.getDescMap() as Map<String, dynamic>;
-    this.img_src =
-    await this.data_networking.getImgMap() as Map<String, dynamic>;
+        await this.dataNetworking.getDescMap() as Map<String, dynamic>;
+    this.imgSrc =
+        await this.dataNetworking.getImgMap() as Map<String, dynamic>;
     this.movie = new Movie(
-        name_of_movie: name,
-        description_of_movie: await description[name] as String,
-        img: await img_src[name] as String);
+        nameOfMovie: name,
+        descriptionOfMovie: await description[name] as String,
+        img: await imgSrc[name] as String);
     return this.movie;
   }
 
-  Movie apply_for_landscape(String name) {
-    Movie movie_for_lanscape = new Movie(name_of_movie: name,
-        description_of_movie: description[name] as String,
-        img: img_src[name] as String);
-    return movie_for_lanscape;
+  Movie applyForLandscape(String name) {
+    Movie movieForLanscape = new Movie(
+        nameOfMovie: name,
+        descriptionOfMovie: description[name] as String,
+        img: imgSrc[name] as String);
+    return movieForLanscape;
   }
 }

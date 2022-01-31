@@ -4,12 +4,12 @@ import 'package:film_app/Model/movieModel.dart';
 import 'package:film_app/Widgets/infoView.dart';
 import 'package:flutter/material.dart';
 
-class landScapeInfo extends StatelessWidget {
-  final Description_block _check_info_bloc = new Description_block();
+class LandScapeInfo extends StatelessWidget {
+  final DescriptionBlock _checkInfoBloc = new DescriptionBlock();
   late Movie _movie;
-  String name_of_movie;
+  String nameOfMovie;
 
-  landScapeInfo({Key? key, required this.name_of_movie}) : super(key: key);
+  LandScapeInfo({Key? key, required this.nameOfMovie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class landScapeInfo extends StatelessWidget {
       child: Stack(
         children: [
           StreamBuilder(
-              stream: _check_info_bloc.outputMovieController,
+              stream: _checkInfoBloc.outputMovieController,
               builder: (context, snapshot) {
-                _check_info_bloc.inputMovieNameController.add(name_of_movie);
+                _checkInfoBloc.inputMovieNameController.add(nameOfMovie);
                 if (snapshot.data == null) {
                   return Center(
                     child: CircularProgressIndicator(),
@@ -39,6 +39,6 @@ class landScapeInfo extends StatelessWidget {
         ],
       ),
     );
-    ;
+
   }
 }

@@ -35,7 +35,7 @@ class InfoView extends StatelessWidget {
                 left: this.paddingSizeForNameOfMovie.left as double),
             child: Center(
                 child: Text(
-              movie.name_of_movie,
+              movie.nameOfMovie,
               style: TextStyle(fontSize: this.fontSizeNameOfMovie),
               key: UniqueKey(),
             ))),
@@ -60,9 +60,9 @@ class InfoView extends StatelessWidget {
                 right: this.paddingSizeForDescriptionOfMovie.right as double,
                 bottom: this.paddingSizeForDescriptionOfMovie.bottom as double),
             child:
-                SizedBox(width: 300, child: Text(movie.description_of_movie)))
+                SizedBox(width: 300, child: Text(movie.descriptionOfMovie)))
       ],
     );
-    ;
+
   }
 }

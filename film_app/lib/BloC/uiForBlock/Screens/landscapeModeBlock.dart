@@ -7,30 +7,30 @@ import 'package:flutter/material.dart';
 
 class LandScapeMode extends StatefulWidget {
   final List<String> moviesList;
-  final Movie? selected_movie;
+  final Movie? selectedMovie;
 
   const LandScapeMode({
     Key? key,
     required this.moviesList,
-    this.selected_movie,
+    this.selectedMovie,
   }) : super(key: key);
 
   @override
   _LandScapeModeState createState() =>
-      _LandScapeModeState(movie: this.selected_movie, moviesList: moviesList);
+      _LandScapeModeState(movie: this.selectedMovie, moviesList: moviesList);
 }
 
 class _LandScapeModeState extends State<LandScapeMode> {
   final List<String> moviesList;
-  late final Description_block _check_info_bloc = new Description_block();
+  late final DescriptionBlock _checkInfoBloc = new DescriptionBlock();
   late Movie _movie;
   late final Widget chooseArchInfoWidget;
   final _selection = ValueNotifier<String?>(null);
 
   _LandScapeModeState({Movie? movie, required this.moviesList}) {
     if (movie != null) {
-      this._movie = movie as Movie;
-      _selection.value = _movie.name_of_movie;
+      this._movie = movie;
+      _selection.value = _movie.nameOfMovie;
     }
   }
 
@@ -40,8 +40,8 @@ class _LandScapeModeState extends State<LandScapeMode> {
       children: [
         Container(
           width: 300,
-          child: movieListView(
-              movies_list: moviesList,
+          child: MovieListView(
+              moviesList: moviesList,
               onSelect: (value) {
                 setState(() {
                   _selection.value = value;
@@ -67,9 +67,9 @@ class _LandScapeModeState extends State<LandScapeMode> {
                 child: Stack(
                   children: [
                     StreamBuilder(
-                        stream: _check_info_bloc.outputMovieController,
+                        stream: _checkInfoBloc.outputMovieController,
                         builder: (context, snapshot) {
-                          _check_info_bloc.inputMovieNameController.add(name);
+                          _checkInfoBloc.inputMovieNameController.add(name);
                           if (snapshot.data == null) {
                             return Center(
                               child: CircularProgressIndicator(),

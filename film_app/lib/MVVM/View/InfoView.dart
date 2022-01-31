@@ -3,39 +3,39 @@ import 'package:film_app/BloC/uiForBlock/Screens/landscapeModeBlock.dart';
 import 'package:film_app/Model/movieInfo.dart';
 import 'package:film_app/Model/movieModel.dart';
 import 'package:film_app/Widgets/infoView.dart';
-import 'package:film_app/chooseArchiScreen/Choose_arch_screen.dart';
+import 'package:film_app/chooseArchiScreen/chooseArchScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:film_app/MVVM/ViewModel/ViewModelMovie.dart';
+import 'package:film_app/MVVM/ViewModel/viewModelMovie.dart';
 
-class Info_view extends StatefulWidget {
+class InfoViewMvvM extends StatefulWidget {
   final MovieInfo movieInfo;
-  late final String _name_of_movie;
-  List<String> _movies_list = [];
+  late final String _nameOfMovie;
+  List<String> _moviesList = [];
   static const route = "infoView";
-  Info_view({
+  InfoViewMvvM({
     Key? key,
     required this.movieInfo,
   }) : super(key: key) {
-    _name_of_movie = movieInfo.selected_movie;
-    _movies_list = movieInfo.moviesList;
+    _nameOfMovie = movieInfo.selectedMovie;
+    _moviesList = movieInfo.moviesList;
   }
 
   @override
-  _InfoState createState() => _InfoState(_name_of_movie , _movies_list);
+  _InfoState createState() => _InfoState(_nameOfMovie , _moviesList);
 }
 
-class _InfoState extends State<Info_view> {
-  late final String name_of_movie;
+class _InfoState extends State<InfoViewMvvM> {
+  late final String nameOfMovie;
   late ViewModelMovie _modelMovie = new ViewModelMovie();
   Movie? _movie;
-  List<String> movies_list = [];
+  List<String> moviesList = [];
 
-  _InfoState(this.name_of_movie , this.movies_list) {
-    get_data();
+  _InfoState(this.nameOfMovie , this.moviesList) {
+    getData();
   }
 
-  Future get_data() async {
-    _movie = await _modelMovie.apply_movie(this.name_of_movie);
+  Future getData() async {
+    _movie = await _modelMovie.applyMovie(this.nameOfMovie);
     setState(() {
       this._modelMovie = _modelMovie;
       this._movie = _movie;
@@ -61,6 +61,7 @@ class _InfoState extends State<Info_view> {
               child: CircularProgressIndicator(),
             ));
       } else {
+        //Orientation builder
         if (MediaQuery.of(context).orientation == Orientation.portrait) {
           return Scaffold(
               appBar: AppBar(
@@ -79,7 +80,7 @@ class _InfoState extends State<Info_view> {
                   fontSizeNameOfMovie: 42,
                   fontSizeDiscriptionOfMovie: 20));
         } else {
-          get_data();
+          getData();
           return Scaffold(
             appBar: AppBar(
                 title: Text("Info"),
@@ -87,7 +88,7 @@ class _InfoState extends State<Info_view> {
                     onPressed: exitFromInfoLandScape,
                     icon: Icon(Icons.arrow_back_ios))),
             body: LandScapeMode(
-                moviesList: this.movies_list, selected_movie: _movie),
+                moviesList: this.moviesList, selectedMovie: _movie),
           );
         }
       }

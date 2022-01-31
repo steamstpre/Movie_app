@@ -1,20 +1,20 @@
-import 'package:film_app/Model/movieModel.dart';
+
 import 'package:flutter/material.dart';
 
-class movieListView extends StatelessWidget {
-  final List<String> movies_list;
+class MovieListView extends StatelessWidget {
+  final List<String> moviesList;
   final Function(String) onSelect;
 
-  const movieListView(
-      {Key? key, required this.movies_list, required this.onSelect})
+  const MovieListView(
+      {Key? key, required this.moviesList, required this.onSelect})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: movies_list.length,
+        itemCount: moviesList.length,
         itemBuilder: (context, index) {
-          final item = movies_list[index];
+          final item = moviesList[index];
           return ListTile(title: Text(item), onTap: () => onSelect(item));
         });
   }

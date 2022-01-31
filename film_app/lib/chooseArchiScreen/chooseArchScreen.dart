@@ -1,8 +1,5 @@
-import 'package:film_app/BloC/Consts/routeNameConst.dart';
 import 'package:film_app/BloC/uiForBlock/Screens/listMoviesViewBlock.dart';
-import 'package:film_app/MVVM/View/List_of_movies.dart';
-import 'package:film_app/Storage/Data.dart';
-import 'package:film_app/repositories/repository.dart';
+import 'package:film_app/MVVM/View/listOfMoviesViewMVVM.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context)
-                      .pushNamed(Movies_list.route),
+                      .pushNamed(MoviesList.route),
                   child: Text("BloC"),
                 ),
               ),
@@ -41,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(Movies_list_MvvM.route);
+                    Navigator.of(context).pushNamed(MoviesListMvvM.route);
                   },
                   child: Text("MVVM"),
                 ),

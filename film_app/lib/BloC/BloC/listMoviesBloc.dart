@@ -2,27 +2,27 @@ import 'dart:async';
 
 import 'package:film_app/repositories/repository.dart';
 
-class List_of_movies_bloc {
-  late List _random_list;
+class ListOfMoviesBloc {
+  late List _randomList;
   final _outputStateController = StreamController<List>();
-  Data_networking _controller = Data_networking();
+  DataNetwork _controller = DataNetwork();
 
   Stream<List> get outputStateStream => _outputStateController.stream;
 
-  List_of_movies_bloc() {
+  ListOfMoviesBloc() {
     _getListFromDataBase();
   }
 
   void _getListFromDataBase() async {
-    _random_list = (await _controller.getMovieList())!;
-    _random_list.shuffle();
-    _outputStateController.sink.add(_random_list);
+    _randomList = (await _controller.getMovieList())!;
+    _randomList.shuffle();
+    _outputStateController.sink.add(_randomList);
   }
 
   Future refreshList() async{//its must to be future generic
-    if(_random_list.isNotEmpty) {
-      _random_list.shuffle();
-      _outputStateController.sink.add(_random_list);
+    if(_randomList.isNotEmpty) {
+      _randomList.shuffle();
+      _outputStateController.sink.add(_randomList);
     }else{
       _getListFromDataBase();
       refreshList();

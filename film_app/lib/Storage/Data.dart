@@ -1,5 +1,5 @@
 class Data {
-  static List<String> movies_list = [
+  static List<String> moviesList = [
     "Amadeus",
     "The Hurt Locker",
     "Mad Max: Fury Road",
@@ -22,7 +22,7 @@ class Data {
     "No Country for Old Men",
     "Eternal Sunshine of the Spotless Mind",
   ];
-  static const Map<String, String> descript_list = {
+  static const Map<String, String> descriptList = {
     "Amadeus":
         "Winner of eight Academy Awards, including Best Picture, this 1984 biopic chronicles the life of Amadeus Mozart, namely through the eyes of his bitter contemporary, Antonio Salieri. Striving for authenticity, director Milos Forman shot the film using only natural light, arguably taking some cues from Stanley Kubrick, who did the same when making “Barry Lyndon.” Tom Hulce went above and beyond to prepare for his role as the famous composer. For instance, Hulce practiced piano for four to five hours a day before filming began.",
     "The Hurt Locker":

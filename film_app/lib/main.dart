@@ -8,8 +8,8 @@ void main() async{
   await Firebase.initializeApp();
 
   runApp(MaterialApp(
-    onGenerateRoute: Route_Generator.onGenerateRoute,
-    onUnknownRoute: Route_Generator.onUnknownRoute,
+    onGenerateRoute: RouteGenerator.onGenerateRoute,
+    onUnknownRoute: RouteGenerator.onUnknownRoute,
   ));
 }
 
