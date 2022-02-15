@@ -13,6 +13,7 @@ class ListOfMoviesBloc {
     _getListFromDataBase();
   }
 
+<<<<<<< Updated upstream
   void _getListFromDataBase() async {
     _randomList = (await _controller.getMovieList())!;
     _randomList.shuffle();
@@ -27,6 +28,16 @@ class ListOfMoviesBloc {
       _getListFromDataBase();
       refreshList();
     }
+=======
+  Future<void> _getListFromDataBase() async {
+    _randomList = (await _controller.getMovieList())!;
+    _outputStateController.sink.add(_randomList);
+  }
+
+  Future<void> refreshList() async {
+    //its must to be future generic
+    _getListFromDataBase();
+>>>>>>> Stashed changes
   }
 
   void dispose() {

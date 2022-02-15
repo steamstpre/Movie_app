@@ -7,6 +7,9 @@ class Movie {
       {required this.nameOfMovie,
       required this.descriptionOfMovie,
       required this.img});
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 }

@@ -16,7 +16,11 @@ class _WrapperMvvMDescriptionState extends State<WrapperMvvMDescription> {
   ViewModelMovie _modelMovie = new ViewModelMovie();
 
 
+<<<<<<< Updated upstream
   Future<Movie> getData() async {
+=======
+  Future<Movie?> getData() async {
+>>>>>>> Stashed changes
     return await _modelMovie.applyMovie(this.widget.nameOfMovie as String);
   }
 
@@ -24,7 +28,11 @@ class _WrapperMvvMDescriptionState extends State<WrapperMvvMDescription> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: getData(),
+<<<<<<< Updated upstream
         builder: (BuildContext context, AsyncSnapshot<Movie> snapshot) {
+=======
+        builder: (BuildContext context, AsyncSnapshot<Movie?> snapshot) {
+>>>>>>> Stashed changes
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),

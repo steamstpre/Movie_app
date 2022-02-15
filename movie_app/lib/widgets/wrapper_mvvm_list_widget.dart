@@ -7,10 +7,14 @@ import 'package:movie_app/widgets/wrapper_mvvm_description_widget.dart';
 
 import 'list_view_widget.dart';
 
+<<<<<<< Updated upstream
 class WrapperMvvMList extends StatefulWidget with Wrapper {
   String? selectedMovie;
   List<String> moviesList = [];
 
+=======
+class WrapperMvvMList extends StatefulWidget {
+>>>>>>> Stashed changes
   WrapperMvvMList({Key? key}) : super(key: key);
 
   @override
@@ -20,11 +24,20 @@ class WrapperMvvMList extends StatefulWidget with Wrapper {
 class _WrapperMvvMListState extends State<WrapperMvvMList> {
   ListMovieViewModel listMovieViewModel = ListMovieViewModel();
   late MovieInfo _movieInfo;
+<<<<<<< Updated upstream
   final _selection = ValueNotifier<String?>(null);
   late Widget _listView;
 
   Future loadData() async {
     this.widget.moviesList = await listMovieViewModel.applyRandomList();
+=======
+  String? selectedMovie;
+  late Widget _listView;
+  late List<String> moviesList;
+
+  Future<void> loadData() async {
+    this.moviesList = await listMovieViewModel.applyRandomList();
+>>>>>>> Stashed changes
 
     setState(() {
       this.listMovieViewModel = listMovieViewModel;
@@ -40,6 +53,7 @@ class _WrapperMvvMListState extends State<WrapperMvvMList> {
   @override
   Widget build(BuildContext context) {
     this._listView = MovieListView(
+<<<<<<< Updated upstream
       moviesList: this.widget.moviesList,
       onSelect: (item) {
         setState(() {
@@ -50,6 +64,17 @@ class _WrapperMvvMListState extends State<WrapperMvvMList> {
         });
         if (MediaQuery.of(context).orientation ==
             Orientation.portrait) {
+=======
+      moviesList: this.moviesList,
+      onSelect: (item) {
+        setState(() {
+          //this._selection.value = item;
+
+          this.selectedMovie = item;
+          this._movieInfo = new MovieInfo("MvvM", item);
+        });
+        if (MediaQuery.of(context).orientation == Orientation.portrait) {
+>>>>>>> Stashed changes
           Navigator.of(context)
               .pushNamed(DetailScreen.route, arguments: this._movieInfo);
         }
@@ -57,7 +82,13 @@ class _WrapperMvvMListState extends State<WrapperMvvMList> {
     );
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       return RefreshIndicator(
+<<<<<<< Updated upstream
         onRefresh: loadData,
+=======
+        onRefresh: () async {
+          this.moviesList = await listMovieViewModel.applyRandomList();
+        },
+>>>>>>> Stashed changes
         child: _listView,
       );
     } else {
@@ -71,6 +102,7 @@ class _WrapperMvvMListState extends State<WrapperMvvMList> {
             ),
           ),
           Expanded(
+<<<<<<< Updated upstream
               child: ValueListenableBuilder<String?>(
                   valueListenable: _selection,
                   builder: (context, name, child) {
@@ -89,6 +121,24 @@ class _WrapperMvvMListState extends State<WrapperMvvMList> {
                       );
                     }
                   }))
+=======
+              child: (this.selectedMovie == null)
+                  ? Stack(
+                      children: [
+                        Center(
+                          child: Text("select item"),
+                        )
+                      ],
+                    )
+                  : LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                      String movie = this.selectedMovie as String;
+                     // this.selectedMovie = null;
+                      return WrapperMvvMDescription(
+                        nameOfMovie: this.selectedMovie,
+                      );
+                    }))
+>>>>>>> Stashed changes
         ],
       );
     }

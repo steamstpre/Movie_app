@@ -7,7 +7,11 @@ class ViewModelMovie {
   late Map<String, dynamic> description;
   late Map<String, dynamic> imgSrc;
 
+<<<<<<< Updated upstream
   Future applyMovie(String name) async {
+=======
+  Future<Movie?>applyMovie(String name) async {
+>>>>>>> Stashed changes
     this.description =
         await this.dataNetworking.getDescMap() as Map<String, dynamic>;
     this.imgSrc = await this.dataNetworking.getImgMap() as Map<String, dynamic>;

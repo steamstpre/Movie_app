@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_info_model.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/screens/detail_screen.dart';
+<<<<<<< Updated upstream
 import 'package:movie_app/screens/home_Screen.dart';
+=======
+import 'package:movie_app/screens/home_screen.dart';
+>>>>>>> Stashed changes
 import 'package:movie_app/screens/list_view_screen.dart';
 
 class RouteGenerator {
