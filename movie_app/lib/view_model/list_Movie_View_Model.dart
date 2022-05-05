@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../repository/repository.dart';
 
 class ListMovieViewModel {
@@ -7,6 +9,7 @@ class ListMovieViewModel {
   Future applyRandomList() async {
     randomList = (await _dataNetworking.getMovieList())!;
     randomList.shuffle();
+    SystemNavigator.pop();
     return randomList;
   }
 }
